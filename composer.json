@@ -1,5 +1,7 @@
 {
+    "minimum-stability": "dev",
     "require": {
-        "yiisoft/yii": "1.1.*"
+        "yiisoft/yii": "1.1.*",
+        "rbac/rbac-standard": "*"
     }
 }

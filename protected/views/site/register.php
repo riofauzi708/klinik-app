@@ -34,6 +34,12 @@ $this->pageTitle = Yii::app()->name . ' - Register';
         <?php echo $form->error($model, 'password_repeat'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model, 'role'); ?>
+        <?php echo $form->dropDownList($model, 'role', array('admin' => 'Admin', 'user' => 'User')); ?>
+        <?php echo $form->error($model, 'role'); ?>
+    </div>
+
     <div class="row buttons">
         <?php echo CHtml::submitButton('Register'); ?>
     </div>

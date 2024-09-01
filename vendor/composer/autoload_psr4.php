@@ -6,4 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Rbac\\Standard\\' => array($vendorDir . '/rbac/rbac-standard/Src'),
 );

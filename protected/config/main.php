@@ -13,15 +13,13 @@ return array(
         'application.components.*',
     ),
 
-    'modules'=>array(
-        // uncomment the following to enable the Gii tool
-        'gii'=>array(
-            'class'=>'system.gii.GiiModule',
-            'password'=>'Enter Your Password Here',
-            // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters'=>array('127.0.0.1','::1'),
-        ),
-    ),
+	'modules'=>array(
+		'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>'your_password_here',
+			'ipFilters'=>array('127.0.0.1','::1'),
+		),
+	),
 
     // application components
     'components'=>array(
@@ -31,12 +29,12 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
-        'authManager'=>array(
+        'authManager' => array(
             'class'=>'CDbAuthManager',
             'connectionID'=>'db',
-            'itemTable'=>'auth_item', // Tabel yang menyimpan item
-            'itemChildTable'=>'auth_item_child', // Tabel yang menyimpan hubungan antara item
-            'assignmentTable'=>'auth_assignment', // Tabel yang menyimpan penugasan
+            'itemTable'=>'authitem',
+            'itemChildTable'=>'authitemchild',
+            'assignmentTable'=>'authassignment',
         ),
         'user'=>array(
             'class'=>'CWebUser',
@@ -48,7 +46,6 @@ return array(
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                'register' => 'site/register',
             ),
         ),
         'errorHandler'=>array(

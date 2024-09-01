@@ -2,6 +2,11 @@
 
 class UserController extends Controller
 {
+    public function actionHome()
+    {
+        $this->render('home');
+    }
+
     public function filters()
     {
         return array(
@@ -12,19 +17,14 @@ class UserController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow',  // Izinkan admin untuk semua tindakan
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
-                'roles' => array('admin'),
-            ),
-            array('allow', // Izinkan user biasa untuk melihat halaman tertentu
-                'actions' => array('index', 'view'),
+            array('allow',
+                'actions' => array('home'),
                 'roles' => array('user'),
             ),
-            array('deny',  // Tolak semua pengguna yang tidak memiliki izin
+            array('deny',
                 'users' => array('*'),
             ),
         );
     }
-
-    // Action CRUD lainnya...
 }
+

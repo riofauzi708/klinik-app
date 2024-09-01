@@ -4,20 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64ded91acf89fd29401c60cc6241afbd",
+    "content-hash": "7b6f2f4b1e597f93754d206c287eaa6a",
     "packages": [
         {
-            "name": "yiisoft/yii",
-            "version": "1.1.29",
+            "name": "rbac/rbac-standard",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yiisoft/yii.git",
-                "reference": "f89b76ecca1d342e346ebb9bfc1e2c589f696345"
+                "url": "https://github.com/muction/rbac-standard.git",
+                "reference": "0f1a4a8ffe8db349a5e07e76d5a20266c38e0e82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii/zipball/f89b76ecca1d342e346ebb9bfc1e2c589f696345",
-                "reference": "f89b76ecca1d342e346ebb9bfc1e2c589f696345",
+                "url": "https://api.github.com/repos/muction/rbac-standard/zipball/0f1a4a8ffe8db349a5e07e76d5a20266c38e0e82",
+                "reference": "0f1a4a8ffe8db349a5e07e76d5a20266c38e0e82",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rbac\\Standard\\": "./Src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "muction",
+                    "email": "muction@yeah.net"
+                }
+            ],
+            "description": "stars permission system",
+            "keywords": [
+                "laravel",
+                "permission-system",
+                "stars-permission"
+            ],
+            "support": {
+                "issues": "https://github.com/muction/rbac-standard/issues",
+                "source": "https://github.com/muction/rbac-standard/tree/master"
+            },
+            "time": "2020-04-26T04:03:33+00:00"
+        },
+        {
+            "name": "yiisoft/yii",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii.git",
+                "reference": "b2c129b1cacd74aa8357398805efe7c0a2c00b57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii/zipball/b2c129b1cacd74aa8357398805efe7c0a2c00b57",
+                "reference": "b2c129b1cacd74aa8357398805efe7c0a2c00b57",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +68,7 @@
             },
             "require-dev": {
                 "cweagans/composer-patches": "^1.7",
-                "pear/archive_tar": "~1.4.6",
+                "pear/archive_tar": "~1.5.0",
                 "phing/phing": "2.*",
                 "phpseclib/mcrypt_compat": "^1.0",
                 "phpunit/phpunit": "4.8.34",
@@ -35,6 +78,7 @@
                 "ext-mcrypt": "Required by encrypt and decrypt methods of CSecurityManager",
                 "phpseclib/mcrypt_compat": "To provide mcrypt polyfill when extension is unavailable"
             },
+            "default-branch": true,
             "bin": [
                 "framework/yiic"
             ],
@@ -146,12 +190,12 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-14T09:26:00+00:00"
+            "time": "2024-06-20T13:58:01+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -3,7 +3,6 @@
 class User extends CActiveRecord
 {
     public $password_repeat; // Untuk konfirmasi password
-    public $email; // Jika email juga disimpan
 
     // Atur nama tabel yang sesuai dengan tabel di database
     public static function model($className=__CLASS__)
@@ -19,10 +18,9 @@ class User extends CActiveRecord
     public function rules()
     {
         return array(
-            array('username, password, password_repeat, email', 'required'),
-            array('email', 'email'), // Validasi format email
-            array('username, email', 'unique'), // Validasi unik
+            array('username, password, password_repeat, role', 'required'),
             array('password_repeat', 'compare', 'compareAttribute' => 'password'),
+            array('username', 'unique', 'message' => 'This username has already been taken.'),
             // Tambahkan aturan validasi lain jika diperlukan
         );
     }
@@ -30,7 +28,7 @@ class User extends CActiveRecord
     public function scenarios()
     {
         return array(
-            'register' => array('username', 'password', 'password_repeat', 'email'),
+            'register' => array('username', 'password', 'password_repeat', 'role'),
             // Scenario lain jika diperlukan
         );
     }
@@ -44,6 +42,16 @@ class User extends CActiveRecord
         }
         return false;
     }
+    
+
+    public function afterSave()
+{
+    parent::afterSave();
+    $auth = Yii::app()->authManager;
+    if (!$auth->isAssigned($this->role, $this->username)) {
+        $auth->assign($this->role, $this->username);
+    }
+}
 
     public function attributeLabels()
     {

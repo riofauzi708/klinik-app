@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit64ded91acf89fd29401c60cc6241afbd
 {
+    public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'Rbac\\Standard\\' => 14,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Rbac\\Standard\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rbac/rbac-standard/Src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Yii' => __DIR__ . '/..' . '/yiisoft/yii/framework/yii.php',
@@ -15,6 +29,8 @@ class ComposerStaticInit64ded91acf89fd29401c60cc6241afbd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64ded91acf89fd29401c60cc6241afbd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64ded91acf89fd29401c60cc6241afbd::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit64ded91acf89fd29401c60cc6241afbd::$classMap;
 
         }, null, ClassLoader::class);
