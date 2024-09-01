@@ -1,10 +1,23 @@
 <?php
 
+// protected/controllers/AdminController.php
 class AdminController extends Controller
 {
     public function actionDashboard()
     {
-        $this->render('dashboard');
+        // Ambil data untuk laporan grafik
+        $reportData = Bill::model()->findAll();
+
+        // Ambil data untuk informasi pembayaran pasien
+        $paidBills = Bill::model()->count('status = :status', array(':status' => 'paid'));
+        $unpaidBills = Bill::model()->count('status = :status', array(':status' => 'unpaid'));
+
+        // Render view dengan data
+        $this->render('dashboard', array(
+            'reportData' => $reportData,
+            'paidBills' => $paidBills,
+            'unpaidBills' => $unpaidBills,
+        ));
     }
 
     public function filters()
@@ -27,4 +40,3 @@ class AdminController extends Controller
         );
     }
 }
-

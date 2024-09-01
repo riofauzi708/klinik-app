@@ -1,16 +1,10 @@
-// protected/views/admin/dashboard.php
+// protected/views/report/index.php
 <?php
-$this->pageTitle = Yii::app()->name . ' - Admin Dashboard';
+$this->pageTitle = Yii::app()->name . ' - Reports';
 ?>
 
-<h1>Admin Dashboard</h1>
-<p>Selamat datang di halaman dashboard admin.</p>
+<h1>Reports</h1>
 
-<h2>Informasi Pembayaran Pasien</h2>
-<p><strong>Paid Bills:</strong> <?php echo CHtml::encode($paidBills); ?></p>
-<p><strong>Unpaid Bills:</strong> <?php echo CHtml::encode($unpaidBills); ?></p>
-
-<h2>Laporan Grafik</h2>
 <canvas id="reportChart" width="400" height="200"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
