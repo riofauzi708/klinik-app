@@ -43,6 +43,13 @@ return array(
         'urlManager'=>array(
             'urlFormat'=>'path',
             'rules'=>array(
+                
+                 // Rules for AdminController
+                'admin/dashboard' => 'admin/index',
+
+                // Other rules
+                'report/grafik' => 'report/grafik',
+
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

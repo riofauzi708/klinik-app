@@ -31,18 +31,16 @@
         'items' => array(
             array('label' => 'Home', 'url' => array('/site/index')),
             array('label' => 'Pendaftaran Pasien', 'url' => array('patient/pendaftaran'), 'visible' => !Yii::app()->user->isGuest),
-            array('label' => 'Pembayaran Tagihan', 'url' => array('bill/pembayaran'), 'visible' => !Yii::app()->user->isGuest),
+            array('label' => 'Tindakan', 'url' => array('treatment/indexAction'), 'visible' => !Yii::app()->user->isGuest),
+            array('label' => 'Obat', 'url' => array('medication/index'), 'visible' => !Yii::app()->user->isGuest),
+            array('label' => 'Informasi Pembayaran', 'url' => array('bill/pembayaran'), 'visible' => !Yii::app()->user->isGuest),
             array('label' => 'Laporan Grafik', 'url' => array('report/grafik'), 'visible' => !Yii::app()->user->isGuest),
-            array('label' => 'Tindakan', 'url' => array('treatment/createAction'), 'visible' => !Yii::app()->user->isGuest),
-            array('label' => 'Obat', 'url' => array('treatment/createMedication'), 'visible' => !Yii::app()->user->isGuest),
             array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
             array('label' => 'Register', 'url' => array('/site/register'), 'visible' => Yii::app()->user->isGuest),
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
         ),
     )); ?>
 </div><!-- mainmenu -->
-
-
 
 
     

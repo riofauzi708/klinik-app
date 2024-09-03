@@ -1,9 +1,8 @@
-// protected/views/report/index.php
 <?php
-$this->pageTitle = Yii::app()->name . ' - Reports';
+$this->pageTitle = Yii::app()->name . ' - Report';
 ?>
 
-<h1>Reports</h1>
+<h1>Report</h1>
 
 <canvas id="reportChart" width="400" height="200"></canvas>
 
@@ -13,10 +12,10 @@ var ctx = document.getElementById('reportChart').getContext('2d');
 var chart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: <?php echo json_encode(array_map(function($item) { return $item->patient_id; }, $reportData)); ?>,
+        labels: <?php echo json_encode(array_column($reportData, 'report_date')); ?>,
         datasets: [{
-            label: 'Amount',
-            data: <?php echo json_encode(array_map(function($item) { return $item->amount; }, $reportData)); ?>,
+            label: 'Number of Registrations',
+            data: <?php echo json_encode(array_column($reportData, 'count')); ?>,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
@@ -31,3 +30,10 @@ var chart = new Chart(ctx, {
     }
 });
 </script>
+
+<?php
+// Debug: Display the reportData to ensure it is not empty
+echo "<pre>";
+print_r($reportData);
+echo "</pre>";
+?>
