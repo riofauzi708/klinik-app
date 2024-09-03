@@ -1,97 +1,63 @@
-// protected/controllers/BillController.php
-
 <?php
+
 class BillController extends Controller
 {
+    // Action untuk menampilkan laporan pembayaran dengan pencarian
     public function actionPembayaran()
     {
-        $model = new Bill;
+        // Ambil nilai pencarian dari query parameter
+        $searchKeyword = Yii::app()->request->getParam('search', '');
 
-        if (isset($_POST['Bill'])) {
-            $model->attributes = $_POST['Bill'];
-            $model->payment_date = new CDbExpression('NOW()');
-            if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+        // Mengambil data pasien dengan pencarian
+        $criteria = new CDbCriteria();
+        
+        if (!empty($searchKeyword)) {
+            $criteria->compare('name', $searchKeyword, true);
+        }
+
+        $patients = Patient::model()->with('actions', 'medications')->findAll($criteria);
+
+        // Menginisialisasi array untuk menyimpan data laporan
+        $reportData = array();
+
+        // Loop melalui setiap pasien dan kumpulkan data yang dibutuhkan
+        foreach ($patients as $patient) {
+            $patientId = $patient->id;
+            $patientName = $patient->name;
+            $address = $patient->address; // Ambil alamat pasien
+
+            // Menghitung total biaya tindakan dan obat-obatan
+            $totalTreatmentCost = 0;
+            $totalMedicationCost = 0;
+
+            // Menghitung total biaya tindakan
+            foreach ($patient->actions as $action) {
+                $totalTreatmentCost += $action->price;
             }
-        }
 
-        // Pastikan untuk mengirim $model ke view
-        $this->render('pembayaran', array('model' => $model));
-    }
-
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules()
-    {
-        return array(
-            array('allow',
-                'actions' => array('pembayaran', 'create', 'view', 'update', 'index'),
-                'roles' => array('admin', 'user'),
-            ),
-            array('deny',
-                'users' => array('*'),
-            ),
-        );
-    }
-
-    public function actionCreate()
-    {
-        $model = new Bill;
-
-        if (isset($_POST['Bill'])) {
-            $model->attributes = $_POST['Bill'];
-            $model->payment_date = new CDbExpression('NOW()');
-            if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+            // Menghitung total biaya obat-obatan
+            foreach ($patient->medications as $medication) {
+                $totalMedicationCost += $medication->price;
             }
+
+            // Menghitung total harga
+            $totalPrice = $totalTreatmentCost + $totalMedicationCost;
+
+            // Menyimpan data ke array reportData
+            $reportData[] = array(
+                'patient_id' => $patientId,
+                'patient_name' => $patientName,
+                'address' => $address,
+                'total_treatment_cost' => $totalTreatmentCost,
+                'total_medication_cost' => $totalMedicationCost,
+                'total_price' => $totalPrice,
+            );
         }
 
-        $this->render('create', array('model' => $model));
-    }
-
-    public function actionView($id)
-    {
-        $model = $this->loadModel($id);
-        $this->render('view', array('model' => $model));
-    }
-
-    public function loadModel($id)
-    {
-        $model = Bill::model()->findByPk($id);
-        if ($model === null) {
-            throw new CHttpException(404, 'The requested page does not exist.');
-        }
-        return $model;
-    }
-
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Bill', array(
-            'criteria' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => 'unpaid'),
-            ),
+        // Pastikan $reportData dikirimkan ke view
+        $this->render('pembayaran', array(
+            'reportData' => $reportData,
+            'searchKeyword' => $searchKeyword,
         ));
-
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
-
-        if ($model->status === 'unpaid') {
-            $model->status = 'paid';
-            $model->payment_date = new CDbExpression('NOW()');
-
-            if ($model->save()) {
-                $this->redirect(array('index'));
-            }
-        }
     }
 }

@@ -1,8 +1,8 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - Create Action';
+$this->pageTitle = Yii::app()->name . ' - Update Action';
 ?>
 
-<h1>Create Action</h1>
+<h1>Update Action</h1>
 
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'action-form',

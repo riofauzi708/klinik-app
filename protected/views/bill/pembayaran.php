@@ -1,30 +1,33 @@
-// protected/views/bill/pembayaran.php
+<h1>Payment Report</h1>
 
-<?php
-// Contoh penggunaan $model di view
-if(Yii::app()->user->hasFlash('success')) {
-    echo '<div class="flash-success">' . Yii::app()->user->getFlash('success') . '</div>';
-}
-?>
+<!-- Form pencarian -->
+<form method="get" action="<?php echo Yii::app()->createUrl('bill/pembayaran'); ?>">
+    <label for="search">Search Patient:</label>
+    <input type="text" id="search" name="search" value="<?php echo CHtml::encode($searchKeyword); ?>" />
+    <input type="submit" value="Search" />
+</form>
 
-<h1>Pembayaran Tagihan</h1>
-
-<?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'bill-form',
-    'enableClientValidation' => true,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
-    ),
-)); ?>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'amount'); ?>
-        <?php echo $form->textField($model, 'amount'); ?>
-        <?php echo $form->error($model, 'amount'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Bayar'); ?>
-    </div>
-
-<?php $this->endWidget(); ?>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Address</th>
+            <th>Total Treatment Cost</th>
+            <th>Total Medication Cost</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($reportData as $data): ?>
+            <tr>
+                <td><?php echo CHtml::encode($data['patient_id']); ?></td>
+                <td><?php echo CHtml::encode($data['patient_name']); ?></td>
+                <td><?php echo CHtml::encode($data['address']); ?></td>
+                <td><?php echo CHtml::encode(Yii::app()->numberFormatter->format('Rp #,##0.00', $data['total_treatment_cost'])); ?></td>
+                <td><?php echo CHtml::encode(Yii::app()->numberFormatter->format('Rp #,##0.00', $data['total_medication_cost'])); ?></td>
+                <td><?php echo CHtml::encode(Yii::app()->numberFormatter->format('Rp #,##0.00', $data['total_price'])); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

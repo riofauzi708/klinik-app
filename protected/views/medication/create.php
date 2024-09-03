@@ -1,11 +1,11 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - Create Action';
+$this->pageTitle = Yii::app()->name . ' - Create Medication';
 ?>
 
-<h1>Create Action</h1>
+<h1>Create Medication</h1>
 
 <?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'action-form',
+    'id' => 'medication-form',
     'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
@@ -19,21 +19,21 @@ $this->pageTitle = Yii::app()->name . ' - Create Action';
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'action_type'); ?>
-        <?php echo $form->textField($model, 'action_type'); ?>
-        <?php echo $form->error($model, 'action_type'); ?>
+        <?php echo $form->labelEx($model, 'medication_name'); ?>
+        <?php echo $form->textField($model, 'medication_name'); ?>
+        <?php echo $form->error($model, 'medication_name'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description'); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?php echo $form->labelEx($model, 'dosage'); ?>
+        <?php echo $form->textField($model, 'dosage'); ?>
+        <?php echo $form->error($model, 'dosage'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'action_date'); ?>
-        <?php echo $form->textField($model, 'action_date', array('id' => 'action_date')); ?>
-        <?php echo $form->error($model, 'action_date'); ?>
+        <?php echo $form->labelEx($model, 'medication_date'); ?>
+        <?php echo $form->textField($model, 'medication_date', array('id' => 'medication_date')); ?>
+        <?php echo $form->error($model, 'medication_date'); ?>
     </div>
 
     <div class="row">
@@ -54,8 +54,8 @@ $this->pageTitle = Yii::app()->name . ' - Create Action';
 
 <script>
 $(document).ready(function() {
-    // Initialize Datepicker for action_date
-    $('#action_date').datepicker({
+    // Initialize Datepicker for medication_date
+    $('#medication_date').datepicker({
         dateFormat: 'yy-mm-dd' // Format date as YYYY-MM-DD
     });
 
@@ -66,10 +66,13 @@ $(document).ready(function() {
         thousands: '.',
         decimal: ',',
         affixesStay: true
-    }).on('blur', function() {
-        // Remove currency formatting for server submission
-        var value = $(this).maskMoney('unmasked')[0];
-        $(this).val(value);
+    });
+
+    // Clean price format before submitting the form
+    $('#medication-form').on('submit', function() {
+        var price = $('#price').maskMoney('unmasked')[0]; // Get the numeric value
+        $('#price').val(price); // Set it back to the field before submitting
     });
 });
+
 </script>

@@ -1,23 +1,19 @@
 <?php
 
-// protected/controllers/AdminController.php
 class AdminController extends Controller
 {
-    public function actionDashboard()
+    public function actionIndex()
     {
-        // Ambil data untuk laporan grafik
-        $reportData = Bill::model()->findAll();
+        // Fetch report data directly
+        $command = Yii::app()->db->createCommand()
+            ->select('DATE(registration_date) as report_date, COUNT(*) as count')
+            ->from('patient')
+            ->group('DATE(registration_date)')
+            ->order('DATE(registration_date) DESC')
+            ->queryAll();
 
-        // Ambil data untuk informasi pembayaran pasien
-        $paidBills = Bill::model()->count('status = :status', array(':status' => 'paid'));
-        $unpaidBills = Bill::model()->count('status = :status', array(':status' => 'unpaid'));
-
-        // Render view dengan data
-        $this->render('dashboard', array(
-            'reportData' => $reportData,
-            'paidBills' => $paidBills,
-            'unpaidBills' => $unpaidBills,
-        ));
+        // Render the admin dashboard with report data
+        $this->render('dashboard', array('reportData' => $command));
     }
 
     public function filters()
@@ -31,7 +27,7 @@ class AdminController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('dashboard'),
+                'actions' => array('index'),
                 'roles' => array('admin'),
             ),
             array('deny',

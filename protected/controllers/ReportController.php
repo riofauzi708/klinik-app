@@ -1,16 +1,24 @@
 <?php
-
-// protected/controllers/ReportController.php
 class ReportController extends Controller
 {
-
     public function actionGrafik()
     {
-        // Generate report data
-        $reportData = Bill::model()->findAll(); // Fetch all bills
+        // Fetch data for the report
+        $command = Yii::app()->db->createCommand()
+            ->select('DATE(registration_date) as report_date, COUNT(*) as count')
+            ->from('patient')
+            ->group('DATE(registration_date)')
+            ->order('DATE(registration_date) DESC')
+            ->queryAll();
+
+        // Ensure data is correctly formatted
+        if ($command === false || empty($command)) {
+            Yii::log('No data found for report.', CLogger::LEVEL_ERROR);
+            $command = [];
+        }
 
         // Render view with data
-        $this->render('grafik', array('reportData' => $reportData));
+        $this->render('grafik', array('reportData' => $command));
     }
 
     public function filters()
@@ -31,14 +39,5 @@ class ReportController extends Controller
                 'users' => array('*'),
             ),
         );
-    }
-
-    public function actionIndex()
-    {
-        // Ambil semua data dari tabel 'bill'
-        $reportData = Bill::model()->findAll();
-    
-        // Kirim data ke view
-        $this->render('index', array('reportData' => $reportData));
     }
 }
