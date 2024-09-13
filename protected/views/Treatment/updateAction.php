@@ -12,6 +12,7 @@ $this->pageTitle = Yii::app()->name . ' - Update Action';
     ),
 )); ?>
 
+<div class="form">
     <div class="row">
         <?php echo $form->labelEx($model, 'patient_id'); ?>
         <?php echo $form->dropDownList($model, 'patient_id', $patients, array('prompt' => 'Select Patient')); ?>
@@ -43,8 +44,9 @@ $this->pageTitle = Yii::app()->name . ' - Update Action';
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Save'); ?>
+        <?php echo CHtml::submitButton('Save', array('class' => 'btn btn-primary')); ?>
     </div>
+</div>
 
 <?php $this->endWidget(); ?>
 

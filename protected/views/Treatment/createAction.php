@@ -12,38 +12,40 @@ $this->pageTitle = Yii::app()->name . ' - Create Action';
     ),
 )); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'patient_id'); ?>
-        <?php echo $form->dropDownList($model, 'patient_id', $patients, array('prompt' => 'Select Patient')); ?>
-        <?php echo $form->error($model, 'patient_id'); ?>
-    </div>
+    <div class="form">
+        <div class="row">
+            <?php echo $form->labelEx($model, 'patient_id'); ?>
+            <?php echo $form->dropDownList($model, 'patient_id', $patients, array('prompt' => 'Select Patient')); ?>
+            <?php echo $form->error($model, 'patient_id'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'action_type'); ?>
-        <?php echo $form->textField($model, 'action_type'); ?>
-        <?php echo $form->error($model, 'action_type'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'action_type'); ?>
+            <?php echo $form->textField($model, 'action_type'); ?>
+            <?php echo $form->error($model, 'action_type'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description'); ?>
-        <?php echo $form->error($model, 'description'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'description'); ?>
+            <?php echo $form->textArea($model, 'description'); ?>
+            <?php echo $form->error($model, 'description'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'action_date'); ?>
-        <?php echo $form->textField($model, 'action_date', array('id' => 'action_date')); ?>
-        <?php echo $form->error($model, 'action_date'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'action_date'); ?>
+            <?php echo $form->textField($model, 'action_date', array('id' => 'action_date')); ?>
+            <?php echo $form->error($model, 'action_date'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'price'); ?>
-        <?php echo $form->textField($model, 'price', array('id' => 'price', 'placeholder' => 'Rp 0')); ?>
-        <?php echo $form->error($model, 'price'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'price'); ?>
+            <?php echo $form->textField($model, 'price', array('id' => 'price', 'placeholder' => 'Rp 0')); ?>
+            <?php echo $form->error($model, 'price'); ?>
+        </div>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Save'); ?>
+        <div class="row buttons">
+            <?php echo CHtml::submitButton('Save', array('class' => 'btn btn-primary')); ?>
+        </div>
     </div>
 
 <?php $this->endWidget(); ?>
